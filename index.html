@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blockchain Expert Study Hub</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1b2033;--muted:#5d6580;--line:#e1e4ef;--brand:#4f46e5;--brand-ink:#fff;
+--green:#16a34a;--orange:#ea8a00;--red:#dc2626;--gbg:#e7f6ec;--obg:#fff2dc;--rbg:#fde8e8;--shadow:0 1px 3px rgba(20,25,60,.08)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0f1220;--card:#181c30;--ink:#e8eaf5;--muted:#9aa3c4;--line:#2a3050;--brand:#818cf8;--brand-ink:#0f1220;--gbg:#12301e;--obg:#3a2a0c;--rbg:#3b1717;--shadow:none}}
+:root[data-theme=dark]{--bg:#0f1220;--card:#181c30;--ink:#e8eaf5;--muted:#9aa3c4;--line:#2a3050;--brand:#818cf8;--brand-ink:#0f1220;--gbg:#12301e;--obg:#3a2a0c;--rbg:#3b1717;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px 60px}
+header{padding:28px 0 12px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+h1{margin:0;font-size:1.7rem}
+.sub{color:var(--muted);margin:4px 0 0}
+.count{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 16px;text-align:center;box-shadow:var(--shadow)}
+.count b{font-size:1.8rem;color:var(--brand);display:block;line-height:1.1}
+nav{display:flex;gap:6px;flex-wrap:wrap;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--line)}
+nav button,.btn{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:10px;cursor:pointer}
+nav button.on,.btn.primary{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.btn:hover,nav button:hover{border-color:var(--brand)}
+section{display:none;padding-top:18px}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow);margin-bottom:12px}
+h2{margin:22px 0 10px;font-size:1.25rem}h3{margin:0 0 6px;font-size:1.05rem}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--green);width:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pill{font-size:.78rem;padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.topic summary{cursor:pointer;display:flex;gap:10px;align-items:center;list-style:none}
+.topic summary::-webkit-details-marker{display:none}
+.topic summary span.t{flex:1;font-weight:600}
+.topic ul{margin:10px 0 0 0;padding-left:20px}.topic li{margin:3px 0}
+.pri{font:inherit;font-size:.78rem;border-radius:99px;border:1px solid var(--line);padding:2px 10px;cursor:pointer;color:var(--ink);background:var(--card)}
+.pri.g{background:var(--gbg);border-color:var(--green)}.pri.o{background:var(--obg);border-color:var(--orange)}.pri.r{background:var(--rbg);border-color:var(--red)}
+.legend span{margin-right:12px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+.flash{min-height:190px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.25rem;cursor:pointer;padding:24px}
+.flash small{display:block;color:var(--muted);font-size:.8rem;margin-bottom:8px}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.opt.ok{background:var(--gbg);border-color:var(--green)}.opt.bad{background:var(--rbg);border-color:var(--red)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.grid .card{margin:0}
+.muted{color:var(--muted)}
+select,input[type=text]{font:inherit;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.tag{font-size:.75rem;color:var(--brand);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1>Blockchain Expert Study Hub</h1>
+    <p class="sub">Cohort 14 · Final exam: December 13, 2026 · Everything saves in your browser</p>
+  </div>
+  <div class="row">
+    <div class="count"><b id="days">–</b><span class="muted">days to exam</span></div>
+    <button class="btn" id="theme" aria-label="Toggle theme">◐ Theme</button>
+  </div>
+</header>
+<nav id="nav">
+  <button data-t="home" class="on">Dashboard</button>
+  <button data-t="topics">Syllabus</button>
+  <button data-t="cards">Flashcards</button>
+  <button data-t="quiz">Quiz</button>
+  <button data-t="strat">Study strategies</button>
+  <button data-t="plan">Study plan</button>
+</nav>
+
+<section id="home" class="on">
+  <div class="card">
+    <h3>Overall progress</h3>
+    <div class="bar"><i id="pbar"></i></div>
+    <p class="muted" id="ptext"></p>
+  </div>
+  <div class="grid" id="partProg"></div>
+  <h2>Today's focus</h2>
+  <div class="card" id="focus"></div>
+  <div class="card">
+    <h3>How the syllabus color code works</h3>
+    <p class="legend"><span><i class="dot" style="background:var(--green)"></i><b>Green</b> – core, study thoroughly</span><span><i class="dot" style="background:var(--orange)"></i><b>Orange</b> – possible general-knowledge questions</span><span><i class="dot" style="background:var(--red)"></i><b>Red</b> – excluded</span></p>
+    <p class="muted">Your summary didn't say which topic got which color, so every topic starts unmarked. Open the <b>Syllabus</b> tab and click the colored chip on each topic to match your official syllabus. Flashcards and the quiz can then be filtered by priority.</p>
+  </div>
+</section>
+
+<section id="topics">
+  <div class="row" style="margin-bottom:10px">
+    <label>Show: <select id="fpri"><option value="">All topics</option><option value="g">Green only</option><option value="go">Green + Orange</option><option value="x">Hide red</option><option value="u">Not mastered</option></select></label>
+    <span class="muted">Tick the box when you can explain a topic without notes.</span>
+  </div>
+  <div id="topicList"></div>
+</section>
+
+<section id="cards">
+  <div class="row" style="margin-bottom:10px">
+    <label>Deck: <select id="deckSel"></select></label>
+    <label>Mode: <select id="modeSel"><option value="due">Due today (spaced repetition)</option><option value="all">All cards, shuffled</option></select></label>
+    <span class="pill" id="cstat"></span>
+  </div>
+  <div class="card flash" id="flash" tabindex="0" role="button" aria-label="Flip card"></div>
+  <div class="row" id="cbtn" style="justify-content:center">
+    <button class="btn" id="cflip">Flip (space)</button>
+    <button class="btn" id="cno">✗ Didn't know</button>
+    <button class="btn primary" id="cyes">✓ Knew it</button>
+  </div>
+  <p class="muted" style="text-align:center">Leitner system: cards you know come back after 1, 3, 7, 14 days; misses return tomorrow.</p>
+</section>
+
+<section id="quiz">
+  <div class="row" style="margin-bottom:10px">
+    <label>Topic: <select id="qpart"></select></label>
+    <button class="btn primary" id="qstart">Start new quiz</button>
+    <span class="pill" id="qscore"></span>
+  </div>
+  <div class="card" id="qbox"><p class="muted">Pick a topic and press <b>Start new quiz</b>. Questions are shuffled each time. Quizzing yourself beats rereading, so try answering before you look at the options.</p></div>
+</section>
+
+<section id="strat">
+  <p class="muted">Backed by learning-science research. Each strategy comes with a concrete way to use it for this course.</p>
+  <div class="grid" id="stratList"></div>
+</section>
+
+<section id="plan">
+  <div class="card">
+    <h3>Countdown plan to December 13</h3>
+    <p class="muted">Dates assume you start on Nov 16. Adjust to what your syllabus marks green first, and always give green topics the most time.</p>
+  </div>
+  <div id="planList"></div>
+  <div class="card">
+    <h3>Exam-day checklist</h3>
+    <ul>
+      <li>Sleep 7–9 hours the night before. Skip all-nighters, since memory consolidates during sleep.</li>
+      <li>Do a 20-minute skim of your one-page "cheat sheet" you wrote from memory, then stop.</li>
+      <li>On the test: answer easy questions first, flag hard ones, leave a few minutes to review.</li>
+      <li>For "which is NOT…" questions, cross out options you know are true.</li>
+    </ul>
+  </div>
+</section>
+</div>
+
+<script>
+/* ---------- DATA ---------- */
+const PARTS=[
+ {id:1,name:"Part 1 · Foundations, Bitcoin, Ethereum, Wallets",weeks:"Weeks 1–3"},
+ {id:2,name:"Part 2 · Trading, CeFi, DeFi intro",weeks:"Weeks 4–5"},
+ {id:3,name:"Part 3 · Advanced Bitcoin/Ethereum, DeFi, NFTs",weeks:"Weeks 7–10"},
+ {id:4,name:"Part 4 · Fundraising, CBDCs, Tax, Privacy, Security",weeks:"Weeks 11–14"},
+ {id:5,name:"Part 5 · Gaming, Layers, Interoperability, Advanced Tech",weeks:"Weeks 15–20"}
+];
+const TOPICS=[
+ {id:"t1",p:1,t:"Evolution of money & intro to Bitcoin",k:["Barter → commodity money → fiat → digital → crypto; money must be a store of value, medium of exchange and unit of account.","Bitcoin (2008 whitepaper by Satoshi Nakamoto, launched Jan 2009) is peer-to-peer electronic cash without a trusted intermediary.","Fixed supply of 21 million BTC; halving roughly every 4 years (210,000 blocks).","Solves double-spending without a central authority."]},
+ {id:"t2",p:1,t:"Proof of Work (PoW)",k:["Miners compete to find a hash below a target; the winner adds the block and earns the reward.","Security comes from cost: attacking requires >50% of hash power (51% attack).","Block time ≈ 10 minutes on Bitcoin.","Trade-off: high energy use, but strong, battle-tested security."]},
+ {id:"t3",p:1,t:"Bitcoin mining, economics & energy",k:["Miner income = block subsidy + transaction fees; subsidy halves every ~4 years.","Network effect: more users, merchants and miners make the network more valuable and secure.","Energy debate: energy use secures the network; miners increasingly use stranded or renewable energy.","Hardware: CPUs → GPUs → ASICs."]},
+ {id:"t4",p:1,t:"Ethereum, EVM & smart contracts",k:["Ethereum is a programmable blockchain proposed by Vitalik Buterin; native coin ETH.","EVM = Ethereum Virtual Machine, the runtime that executes smart contract code on every node.","Smart contract = self-executing code on-chain; automates processes without intermediaries; immutable once deployed (unless upgradeable by design).","Applications built on contracts are dApps."]},
+ {id:"t5",p:1,t:"Proof of Stake, coins vs tokens, trilemma",k:["PoS: validators lock (stake) coins and are chosen to propose blocks; misbehaviour is punished by slashing. Ethereum moved to PoS in 'The Merge' (Sept 2022), cutting energy use ~99%.","Coin = native asset of its own blockchain (BTC, ETH). Token = issued on top of another chain via smart contract (e.g. ERC-20 USDC, UNI).","Blockchain trilemma: decentralization, security, scalability; hard to maximize all three at once."]},
+ {id:"t6",p:1,t:"Wallets, keys & security rules",k:["Private key signs transactions and proves ownership; public key → address is safe to share. 'Not your keys, not your coins.'","Seed phrase (12/24 words) restores all keys; never share or store it digitally/online.","Hot wallets are online (mobile, web, desktop software): convenient, more exposed. Cold wallets are offline (hardware, paper): safer for large holdings.","Custodial wallets: a third party holds keys. Non-custodial: you hold them.","Rules of thumb: 2FA, backups, verify addresses, test small amounts, no sharing keys."]},
+ {id:"t7",p:1,t:"Exchanges vs brokers",k:["Exchange: a marketplace matching buyers and sellers (order book), typically with deeper liquidity and more assets.","Broker: sells to you from its own inventory or routes the order; simpler and often pricier (spread).","Centralized exchanges (CEX) hold your funds; DEXs let you trade from your own wallet."]},
+ {id:"t8",p:1,t:"Crypto scams",k:["Ponzi: early investors paid from later investors' money; collapses when new money stops.","Pyramid: income from recruiting others rather than a real product.","Phishing: fake sites/messages steal keys or seed phrases.","Red flags: guaranteed returns, urgency, pressure to recruit, anonymous teams."]},
+ {id:"t9",p:2,t:"Order books, leverage, arbitrage, derivatives",k:["Order book lists bids (buy) and asks (sell); spread = gap between best bid and ask. Market order = now at best price; limit order = at your price.","Leverage multiplies exposure with borrowed funds; gains and losses amplified; liquidation if margin is insufficient.","Arbitrage: profit from price differences across markets.","Derivatives: futures, options, perpetuals derive value from an underlying asset."]},
+ {id:"t10",p:2,t:"CeFi & audits",k:["CeFi: centralized companies offering custody, lending, trading, KYC/AML.","Smart contract/protocol audits: independent code review to find vulnerabilities; an audit lowers risk but never guarantees safety.","CeFi risk: counterparty risk (FTX, Celsius collapses)."]},
+ {id:"t11",p:2,t:"DeFi basics: payments, lending, DEXs",k:["DeFi = financial services on public blockchains, run by smart contracts, open and permissionless.","Lending: deposit assets to earn interest; borrowers post over-collateral; liquidation if collateral value falls.","DEX: swap tokens directly from your wallet, usually via automated market makers."]},
+ {id:"t12",p:2,t:"Stablecoins, MiCA, RWA, oracles",k:["Stablecoins target a peg (e.g. $1): fiat-backed (USDC, USDT), crypto-collateralized (DAI), algorithmic (UST failed).","MiCA = EU Markets in Crypto-Assets regulation, includes stablecoin rules.","RWA tokenization: representing real assets (bonds, real estate) as tokens.","Oracle: service that feeds off-chain data (e.g. prices) to smart contracts; Chainlink is the best-known."]},
+ {id:"t13",p:2,t:"Memecoins, NFTs, DAOs (intro)",k:["Memecoins: community/hype-driven tokens with little fundamental value (DOGE, SHIB).","NFT: non-fungible token proving unique ownership of a digital item.","DAO: organization governed by token-holder votes via smart contracts."]},
+ {id:"t14",p:2,t:"DeFi scams & tokenomics",k:["Pump and dump: coordinated hype to inflate price, insiders sell.","Rug pull: developers drain liquidity and disappear.","Tokenomics: supply/demand, burning (reduces supply), vesting (locked release schedule), pre-mining (allocation before launch), airdrops (free distribution to users)."]},
+ {id:"t15",p:3,t:"Mining math, hashing, difficulty, nodes, pools",k:["Hash function (SHA-256): deterministic, fixed-size output, one-way, tiny input change → completely different output.","Difficulty adjusts every 2016 blocks (~2 weeks) to keep ~10-minute block time.","Full node stores & validates the whole chain; light (SPV) node downloads headers only.","Mining pools combine hash power for steadier, smaller payouts."]},
+ {id:"t16",p:3,t:"Bitcoin upgrades, address types, gas fees",k:["SegWit (2017) separates signature data, raising capacity and fixing malleability.","Taproot (2021) improves privacy, efficiency and smart-contract flexibility (Schnorr signatures).","Soft fork = backward-compatible upgrade; hard fork = incompatible, can split the chain.","Ethereum gas: fee = gas used × price. EIP-1559 introduced base fee (burned) plus tip."]},
+ {id:"t17",p:3,t:"Ethereum 1.0→2.0, advanced DeFi",k:["Ethereum 2.0 (consensus layer) moved PoW → PoS and aims at sharding/scaling.","Liquidity pools: users deposit token pairs; AMMs price using a formula (x·y=k); LPs earn fees but face impermanent loss.","Market makers provide liquidity; vaults auto-compound yield strategies.","TVL (Total Value Locked) measures assets deposited in a protocol; risks include hacks, bugs, oracle manipulation."]},
+ {id:"t18",p:3,t:"NFTs & advanced DAOs",k:["Use cases: art, collectibles, gaming items, tickets, identity, real-world ownership.","Risks: illiquidity, wash trading, copyright/ownership confusion, hacks, price collapse.","Advanced DAOs: governance tokens, proposals, quorum, treasury management, delegation."]},
+ {id:"t19",p:3,t:"Macro concepts, LUNA crash, Ethereum Classic",k:["Inflation: general prices rise. Deflation: prices fall. Disinflation: inflation slows. Stagflation: stagnant growth plus high inflation.","LUNA/UST (May 2022): algorithmic stablecoin lost its peg; mint/burn death spiral wiped out ~$40B.","Ethereum Classic: the original chain that continued after the 2016 DAO hack, when Ethereum hard-forked to reverse it."]},
+ {id:"t20",p:3,t:"Uniswap & practical DEX trading",k:["Uniswap = leading AMM-based DEX; no order book, traders swap against liquidity pools.","Slippage: difference between expected and executed price, larger for big trades in thin pools; set a slippage tolerance.","Fees: swap fee (to LPs) + network gas.","Check token contract addresses to avoid fake tokens."]},
+ {id:"t21",p:3,t:"Tokenomics case studies (BTC, ETH, UNI, RWA)",k:["Bitcoin: fixed 21M cap, halvings, deflationary design.","Ethereum: no hard cap; EIP-1559 burn can make net supply deflationary; staking rewards.","Uniswap (UNI): governance token, 1B supply, vesting for team/investors/community, airdrop to early users.","RWA: tokens backed by off-chain assets; value depends on legal enforceability and custodians."]},
+ {id:"t22",p:4,t:"Fundraising & MPC",k:["Fundraising routes: ICO, IEO, IDO, STO, VC rounds, airdrops, grants; sources of info: CoinGecko, CoinMarketCap, DefiLlama, project docs.","MPC (Multiparty Computation): key is split among parties; they sign jointly without ever reconstructing the whole key."]},
+ {id:"t23",p:4,t:"CBDCs & Bretton Woods 2.0",k:["Central bank: issues currency, sets monetary policy, supervises the banking system.","CBDC: digital form of fiat issued by a central bank; retail (public) vs wholesale (banks); centralized, unlike Bitcoin.","Bretton Woods 2.0: ideas about a new international monetary order potentially involving digital assets.","Case studies: Ripple (cross-border payments, XRP), Diem/Libra (Facebook stablecoin, shut down under regulatory pressure), Coinbase."]},
+ {id:"t24",p:4,t:"Taxation, AML & regulation",k:["Capital gain = sale price − cost basis; short- vs long-term rates in many countries. Swaps between coins are generally taxable events.","Keep transaction records and report as required.","AML/KYC: identity checks and monitoring to prevent money laundering and terror financing; FATF 'Travel Rule'."]},
+ {id:"t25",p:4,t:"Major altcoins: ADA, SOL, LINK, BNB",k:["Cardano (ADA): research-driven PoS chain (Ouroboros), UTXO-style EUTXO.","Solana (SOL): high throughput, Proof of History + PoS, low fees; has had outages.","Chainlink (LINK): decentralized oracle network.","BNB: Binance's token for fees and BNB Chain."]},
+ {id:"t26",p:4,t:"Privacy & analytics",k:["UTXO model: coins are unspent outputs from earlier transactions (Bitcoin), vs account model (Ethereum).","Bitcoin is pseudonymous, not anonymous: address clustering and heuristics (e.g. common-input-ownership) link addresses.","Analytics firms: Chainalysis, Elliptic, TRM; block explorers (Etherscan, mempool.space) show public data.","Mixers/Tornado Cash obscure fund trails; Tornado Cash was sanctioned by the US (OFAC) in 2022."]},
+ {id:"t27",p:4,t:"Cybersecurity threats",k:["DDoS: flooding a service. Sybil: one actor creates many fake identities. Cryptojacking: hijacking devices to mine.","Ransomware: encrypt data, demand crypto. Dust attack: tiny amounts sent to deanonymize wallets.","MITM: attacker intercepts communication, e.g. swaps destination address.","Best practices: hardware wallet, 2FA, verify URLs, update software, never share seed phrase."]},
+ {id:"t28",p:5,t:"Gaming, metaverse & X2Earn",k:["Blockchain gaming: players truly own in-game assets as NFTs/tokens.","Models: Play2Earn (Axie Infinity), Learn2Earn, Move2Earn (STEPN).","Metaverse: persistent virtual worlds with digital economies (Decentraland, The Sandbox).","Chainalysis tools trace flows for investigations."]},
+ {id:"t29",p:5,t:"Layers 0–3 and scaling",k:["L0: underlying infrastructure/network (e.g. Polkadot, Cosmos relay). L1: base chain (Bitcoin, Ethereum, Solana). L2: scales L1. L3: app-specific chains on L2.","Rollups: batch transactions off-chain, post data to L1. Optimistic (Optimism, Arbitrum, Base) use fraud proofs; ZK rollups (Starknet) use validity proofs.","Sidechains (RSK, Stacks): independent chains with their own security, linked to Bitcoin.","State channels (Lightning Network): off-chain payments between parties, settled on-chain."]},
+ {id:"t30",p:5,t:"Interoperability, wrapped tokens & DID",k:["Cross-chain bridges move assets between chains; frequent hack targets.","Wrapped token (e.g. WBTC) represents an asset on another chain, backed 1:1.","DID/SSI: self-sovereign identity where users control their own verifiable credentials."]},
+ {id:"t31",p:5,t:"Industry trends, AI/IoT & corporate treasuries",k:["Israel's crypto scene: strong security, cyber and fintech talent.","AI + blockchain: data provenance, agent payments, decentralized compute; IoT: machine-to-machine micropayments, device identity.","Corporate treasuries: MicroStrategy (MSTR) holds BTC as a reserve asset; Bitmine does this with ETH."]},
+ {id:"t32",p:5,t:"DAG architecture & Kaspa",k:["DAG (Directed Acyclic Graph): blocks/transactions form a graph instead of one chain, enabling parallel blocks.","Kaspa (KAS): PoW with GHOSTDAG protocol, very fast block rate and high throughput."]}
+];
+const CARDS=[
+ [1,"What are the 3 functions of money?","Store of value, medium of exchange, unit of account."],
+ [1,"Max supply of Bitcoin?","21 million BTC."],
+ [1,"How often does the Bitcoin halving occur?","Every 210,000 blocks, about every 4 years."],
+ [1,"What problem did Bitcoin solve?","Double-spending without a trusted third party."],
+ [1,"Average Bitcoin block time?","About 10 minutes."],
+ [1,"What is Proof of Work?","Consensus where miners expend computation to find a valid block hash; security comes from the cost of attacking."],
+ [1,"What is a 51% attack?","An entity controlling a majority of hash power can reorder recent blocks/double-spend."],
+ [1,"Miner revenue sources?","Block subsidy plus transaction fees."],
+ [1,"What is the EVM?","Ethereum Virtual Machine: the runtime that executes smart contract code on all nodes."],
+ [1,"What is a smart contract?","Self-executing code deployed on a blockchain that automates agreements."],
+ [1,"Coin vs token?","Coin: native asset of its own blockchain. Token: issued on an existing chain via a smart contract."],
+ [1,"Blockchain trilemma?","Hard to achieve decentralization, security and scalability all at once."],
+ [1,"What is staking and slashing?","Locking coins to validate (PoS); slashing penalizes misbehaving validators by destroying part of the stake."],
+ [1,"Private key vs public address?","Private key signs and proves ownership (secret). Address derives from the public key and is safe to share."],
+ [1,"Hot vs cold wallet?","Hot is internet-connected (convenient, riskier). Cold is offline (hardware/paper; safer)."],
+ [1,"Custodial vs non-custodial wallet?","Custodial: a third party holds your keys. Non-custodial: you hold them."],
+ [1,"Exchange vs broker?","Exchange matches buyers/sellers in an order book; broker sells from own inventory or routes orders for a spread/fee."],
+ [1,"Ponzi vs pyramid scheme?","Ponzi pays old investors with new investors' money. Pyramid pays for recruiting. Both collapse when new money stops."],
+ [1,"What is phishing?","Deceiving victims with fake sites/messages to steal credentials or seed phrases."],
+ [2,"What is the bid-ask spread?","Difference between the highest bid and the lowest ask."],
+ [2,"Market vs limit order?","Market: execute immediately at the best price. Limit: execute only at your chosen price or better."],
+ [2,"What is leverage?","Borrowing to enlarge position size; amplifies gains and losses and risks liquidation."],
+ [2,"What is arbitrage?","Profiting from price differences of the same asset across markets."],
+ [2,"What are derivatives?","Contracts whose value derives from an underlying asset (futures, options, perpetuals)."],
+ [2,"What is CeFi?","Centralized finance: companies that custody funds and run services, with KYC."],
+ [2,"What does a smart contract audit do?","Independent review to find vulnerabilities; reduces but doesn't remove risk."],
+ [2,"What is an oracle?","Service delivering off-chain data to smart contracts (e.g. Chainlink)."],
+ [2,"Types of stablecoins?","Fiat-backed, crypto-collateralized, algorithmic."],
+ [2,"What is MiCA?","EU regulation for crypto-assets, including stablecoin rules."],
+ [2,"What is RWA tokenization?","Representing real-world assets such as bonds or property as blockchain tokens."],
+ [2,"Pump and dump vs rug pull?","P&D: hype to inflate then dump. Rug pull: devs drain liquidity and vanish."],
+ [2,"Coin burning, vesting, airdrop?","Burn: permanently remove supply. Vesting: scheduled unlock. Airdrop: free token distribution."],
+ [3,"How often does Bitcoin difficulty adjust?","Every 2016 blocks (~2 weeks)."],
+ [3,"Properties of a cryptographic hash?","Deterministic, fixed length, one-way, avalanche effect, collision resistant."],
+ [3,"Full node vs light node?","Full validates and stores the entire chain; light downloads only headers and trusts full nodes for data."],
+ [3,"Why use mining pools?","Combine hash power to get frequent, smaller, steadier rewards."],
+ [3,"SegWit?","2017 upgrade moving signature data outside the base block; more capacity and fixed malleability."],
+ [3,"Taproot?","2021 upgrade using Schnorr signatures for privacy, efficiency and flexible scripts."],
+ [3,"Soft vs hard fork?","Soft: backward compatible. Hard: incompatible rules; can create a chain split."],
+ [3,"Ethereum gas fee formula?","Gas used × gas price (base fee, burned, + priority tip after EIP-1559)."],
+ [3,"What is an AMM?","Automated market maker: prices swaps from pool reserves using a formula such as x·y=k."],
+ [3,"What is impermanent loss?","Loss vs just holding, when pooled token prices diverge."],
+ [3,"What is TVL?","Total Value Locked: the value of assets deposited in a DeFi protocol."],
+ [3,"Define inflation, deflation, disinflation, stagflation.","Prices rising; prices falling; inflation slowing; stagnant growth with high inflation."],
+ [3,"What happened with LUNA/UST?","Algorithmic stablecoin lost its peg in May 2022; the mint/burn mechanism triggered a death spiral."],
+ [3,"What is Ethereum Classic?","The original chain that persisted after Ethereum's 2016 DAO-hack hard fork."],
+ [3,"What is slippage?","Gap between expected and executed price, bigger for large trades in low-liquidity pools."],
+ [4,"What is MPC?","Multiparty computation: parties jointly compute/sign without revealing their key shares."],
+ [4,"Retail vs wholesale CBDC?","Retail: for the public. Wholesale: for banks and institutions."],
+ [4,"Why did Diem/Libra fail?","Regulatory and political pushback; it was shut down in 2022."],
+ [4,"What is a capital gain?","Sale price minus cost basis."],
+ [4,"What are AML and KYC?","Anti-money-laundering rules and know-your-customer identity checks."],
+ [4,"Chainlink (LINK) is…","A decentralized oracle network."],
+ [4,"Solana's key technical idea?","Proof of History alongside PoS for fast ordering and high throughput."],
+ [4,"UTXO vs account model?","UTXO: spend discrete outputs (Bitcoin). Account: balances in accounts (Ethereum)."],
+ [4,"Is Bitcoin anonymous?","No, pseudonymous; address clustering and heuristics can deanonymize users."],
+ [4,"Tornado Cash?","Ethereum mixer sanctioned by the US OFAC in 2022."],
+ [4,"Sybil attack?","One entity creates many fake identities to gain influence."],
+ [4,"Dust attack?","Sending tiny amounts to many wallets to track and link them."],
+ [4,"Cryptojacking?","Secretly using someone's device to mine crypto."],
+ [4,"MITM attack?","Attacker intercepts/alters communication between two parties."],
+ [5,"Play2Earn, Learn2Earn, Move2Earn?","Earn tokens by playing games, learning, or physical movement."],
+ [5,"Layer 1 vs Layer 2?","L1 is the base chain; L2 builds on L1 to scale (rollups, channels)."],
+ [5,"Optimistic vs ZK rollup?","Optimistic assumes validity and uses fraud proofs; ZK posts validity proofs."],
+ [5,"Examples of rollups?","Optimism, Arbitrum, Base (optimistic); Starknet (ZK)."],
+ [5,"Sidechain examples?","RSK and Stacks (Bitcoin ecosystem)."],
+ [5,"Lightning Network?","Bitcoin state-channel network for fast, cheap off-chain payments."],
+ [5,"What is a cross-chain bridge?","Protocol moving assets/data between blockchains; a major hack target."],
+ [5,"Wrapped token?","Token representing another asset on a different chain, e.g. WBTC."],
+ [5,"DID/SSI?","Decentralized identifiers/self-sovereign identity: users control their own credentials."],
+ [5,"Which companies hold BTC/ETH treasuries?","MicroStrategy (MSTR) holds BTC; Bitmine holds ETH."],
+ [5,"What is a DAG?","Directed acyclic graph: structure allowing parallel blocks instead of one chain (Kaspa)."],
+ [5,"Kaspa consensus?","PoW with GHOSTDAG over a blockDAG."]
+].map((c,i)=>({id:"c"+i,p:c[0],q:c[1],a:c[2]}));
+const QUIZ=[
+ [1,"Which best describes Bitcoin's maximum supply?",["21 million","100 million","Unlimited","210 million"],0,"Fixed cap of 21M BTC."],
+ [1,"What secures a Proof of Work network?",["Cost of computation","Validator reputation","Government oversight","Number of wallets"],0,"Attackers must outspend honest miners in hardware and energy."],
+ [1,"Which is a token, not a coin?",["ETH","BTC","USDC","SOL"],2,"USDC is issued on other chains by smart contracts."],
+ [1,"Which wallet type is generally safest for long-term storage?",["Web wallet","Mobile hot wallet","Hardware (cold) wallet","Exchange account"],2,"Keys stay offline."],
+ [1,"A scheme that pays earlier investors from newer investors' funds is a…",["Pyramid","Ponzi","Rug pull","Airdrop"],1,"That is the Ponzi structure."],
+ [1,"Ethereum's switch to PoS is known as…",["The Merge","The Halving","Taproot","Segwit"],0,"The Merge, Sept 2022."],
+ [1,"The blockchain trilemma concerns…",["Cost, speed, fame","Decentralization, security, scalability","Mining, staking, trading","Coins, tokens, NFTs"],1,"Hard to maximize all three."],
+ [2,"A limit order…",["Executes at any price","Executes only at your price or better","Is always filled","Is only for DEXs"],1,"Price control with no fill guarantee."],
+ [2,"What do oracles do?",["Mine blocks","Bring off-chain data to smart contracts","Store private keys","Burn tokens"],1,"E.g. price feeds from Chainlink."],
+ [2,"Developers draining liquidity and disappearing is a…",["Pump and dump","Rug pull","Airdrop","Vesting cliff"],1,"Classic DeFi exit scam."],
+ [2,"Vesting means…",["Burning tokens","Scheduled release of locked tokens","Free token distribution","Fiat conversion"],1,"Reduces immediate sell pressure."],
+ [2,"Which stablecoin type failed in the LUNA crash?",["Fiat-backed","Algorithmic","Gold-backed","CBDC"],1,"UST depended on a mint/burn mechanism with LUNA."],
+ [3,"How often does Bitcoin adjust mining difficulty?",["Every block","Every 2016 blocks","Every year","Every halving"],1,"About two weeks."],
+ [3,"A light node…",["Stores the full chain","Downloads only block headers","Mines blocks","Never verifies"],1,"SPV-style verification."],
+ [3,"Taproot mainly improves…",["Block time","Privacy and efficiency with Schnorr signatures","Mining difficulty","Token burn"],1,"Activated in 2021."],
+ [3,"In a liquidity pool, LPs risk…",["Impermanent loss","Halving","Slashing only","Gas refunds"],0,"Divergence between asset prices vs holding."],
+ [3,"Slippage is highest when…",["Trading small in deep pools","Trading large in thin pools","Using limit orders","Gas is low"],1,"Large trade, low liquidity moves price more."],
+ [3,"Slow price growth, still positive inflation, is called…",["Deflation","Disinflation","Stagflation","Hyperinflation"],1,"Disinflation: inflation rate falls."],
+ [3,"Ethereum Classic arose after…",["The Merge","The DAO hack and hard fork","Taproot","The Terra crash"],1,"Community split in 2016."],
+ [4,"MPC wallets are secure because…",["The key is split among parties and never fully assembled","They are offline","They use paper","They hide addresses"],0,"Signing is joint without a full key."],
+ [4,"Which uses the UTXO model?",["Ethereum","Bitcoin","Solana","BNB Chain"],1,"Bitcoin tracks unspent outputs."],
+ [4,"Which attack sends tiny amounts to track wallets?",["Sybil","Dust","DDoS","Ransomware"],1,"Dust attack."],
+ [4,"A CBDC is…",["A decentralized stablecoin","Digital fiat issued by a central bank","Bitcoin fork","A mixer"],1,"Centrally issued legal tender."],
+ [4,"Chainlink (LINK) is best known as…",["A DEX","An oracle network","A rollup","A mixer"],1,"Decentralized oracle network."],
+ [4,"Capital gain equals…",["Sale price − cost basis","Cost basis − sale price","Sale price × rate","Fees only"],0,"Profit over what you paid."],
+ [5,"Which is an optimistic rollup?",["Starknet","Arbitrum","Lightning","Stacks"],1,"Arbitrum and Optimism use fraud proofs."],
+ [5,"Lightning Network is a…",["Sidechain","State channel network","ZK rollup","Layer 0"],1,"Off-chain channels for Bitcoin."],
+ [5,"Wrapped Bitcoin (WBTC) lets you…",["Mine on Ethereum","Use BTC value on Ethereum","Avoid fees","Anonymize BTC"],1,"Representation of BTC on another chain."],
+ [5,"Kaspa is distinct because it uses…",["A blockDAG with GHOSTDAG","PoS slashing","State channels","ZK proofs"],0,"Parallel blocks in a DAG."],
+ [5,"Which firm is known for holding ETH as a treasury asset?",["Bitmine","MicroStrategy","Coinbase","Ripple"],0,"MicroStrategy is the BTC treasury example."]
+].map((q,i)=>({id:"q"+i,p:q[0],q:q[1],o:q[2],a:q[3],e:q[4]}));
+const STRATS=[
+ ["Active recall","Close the notes and write or say everything you remember, then check what you missed. Retrieval strengthens memory far more than rereading.","Use the Flashcards tab. Before opening a topic, write its 5 key points from memory on paper."],
+ ["Spaced repetition","Review at growing intervals (1, 3, 7, 14 days). Forgetting just before review makes memory stronger.","The flashcards use the Leitner system. Do a due session every day; never cram a deck in one sitting."],
+ ["Practice testing","Test yourself under exam conditions. The 'testing effect' consistently beats highlighting and rereading.","Take a 20-question quiz per Part, then a mixed all-Parts quiz weekly. Review every wrong answer's explanation."],
+ ["Feynman technique","Explain a concept in plain language as if teaching a beginner. Where you stumble reveals gaps.","Explain 'how a Bitcoin transaction gets confirmed' or 'what is an AMM' to a friend in 2 minutes."],
+ ["Interleaving","Mix topics in one session rather than blocking by topic; it improves discrimination between similar ideas.","Mix confusing pairs: PoW vs PoS, coin vs token, optimistic vs ZK, soft vs hard fork, Ponzi vs pyramid."],
+ ["Elaboration & 'why' questions","Ask why and how things work, connecting new facts to what you know.","Ask: why does difficulty adjust? Why does PoS need slashing? Why over-collateralize DeFi loans?"],
+ ["Dual coding & mind maps","Combine words with diagrams to create two memory routes.","Sketch the layers (L0–L3) as a stack, the Bitcoin mining flow, and a DEX swap. Draw one mind map per Part."],
+ ["Comparison tables","Organize look-alike concepts side by side along the same dimensions.","Table: CEX vs DEX vs broker; hot vs cold; Optimism vs Arbitrum vs Starknet; BTC vs ETH tokenomics."],
+ ["Mnemonics & chunking","Group items and attach memorable cues for lists.","Cyber attacks: 'D-S-C-R-D-M' (DDoS, Sybil, Cryptojacking, Ransomware, Dust, MITM). Invent your own sentences."],
+ ["Pomodoro & focus blocks","25 minutes focused, 5 minutes break; every 4 rounds a longer break. Phone away.","Plan 4–6 pomodoros a day: 2 new material, 2 recall/flashcards, 1–2 quiz and error review."],
+ ["Sleep, movement & nutrition","Sleep consolidates memory; exercise and hydration help attention.","No late-night cramming. Review a short summary before bed, then sleep 7–9 hours."],
+ ["Error log","Track every mistake with the cause (misread, forgot, confused concepts) and revisit it.","Keep a list of missed quiz and flashcard items; reread it twice before the exam."],
+ ["Prioritize by exam weight","Spend time where marks are. Use the color code: green first, orange for the basics, skip red.","Mark each topic's color in the Syllabus tab, then filter to Green. Revisit orange topics as one-line definitions only."]
+];
+const PLAN=[
+ ["Nov 16 – Nov 22","Parts 1 & 2 (the intro exam material)","Read each topic, make flashcards from memory, quiz Parts 1 & 2. Build comparison tables (coin/token, hot/cold, exchange/broker)."],
+ ["Nov 23 – Nov 29","Part 3 (advanced Bitcoin/Ethereum, DeFi, NFTs)","Heaviest technical week: hashing, difficulty, AMMs, slippage, tokenomics. Practice explaining each aloud."],
+ ["Nov 30 – Dec 6","Part 4 (CBDC, tax, privacy, security)","Learn the attack list with mnemonics; work through a capital-gains example; map UTXO vs account."],
+ ["Dec 7 – Dec 11","Part 5 + mixed review","Layers diagram, rollup types, DAG/Kaspa. Then two full mixed quizzes and a pass through your error log."],
+ ["Dec 12","Light review","Re-read your one-page cheat sheets and due flashcards only. Early night."],
+ ["Dec 13","Exam day","Eat, hydrate, arrive early, and trust your retrieval practice."]
+];
+
+/* ---------- STATE ---------- */
+const store={
+ get(k,d){try{const v=localStorage.getItem("bx_"+k);return v?JSON.parse(v):d}catch(e){return d}},
+ set(k,v){try{localStorage.setItem("bx_"+k,JSON.stringify(v))}catch(e){}}
+};
+let done=store.get("done",{}), pri=store.get("pri",{}), box=store.get("box",{});
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const today=()=>Math.floor(Date.now()/864e5);
+const priLabel={"":"Set priority",g:"● Green",o:"● Orange",r:"● Red"};
+const cycle={"":"g",g:"o",o:"r",r:""};
+
+/* ---------- THEME & NAV ---------- */
+(function(){const t=store.get("theme",null);if(t)document.documentElement.dataset.theme=t})();
+$("#theme").onclick=()=>{const dark=matchMedia("(prefers-color-scheme:dark)").matches;const cur=document.documentElement.dataset.theme||(dark?"dark":"light");const n=cur==="dark"?"light":"dark";document.documentElement.dataset.theme=n;store.set("theme",n)};
+$$("#nav button").forEach(b=>b.onclick=()=>{$$("#nav button").forEach(x=>x.classList.remove("on"));$$("section").forEach(x=>x.classList.remove("on"));b.classList.add("on");$("#"+b.dataset.t).classList.add("on");if(b.dataset.t==="home")renderHome()});
+const d=Math.ceil((new Date("2026-12-13T00:00:00")-Date.now())/864e5);
+$("#days").textContent=d>0?d:(d===0?"Today":"Done");
+
+/* ---------- HOME ---------- */
+function renderHome(){
+ const n=TOPICS.length,m=TOPICS.filter(t=>done[t.id]).length;
+ $("#pbar").style.width=(m/n*100)+"%";
+ $("#ptext").textContent=`${m} of ${n} topics mastered · ${Object.keys(box).length} of ${CARDS.length} flashcards started`;
+ $("#partProg").innerHTML=PARTS.map(p=>{const ts=TOPICS.filter(t=>t.p===p.id),k=ts.filter(t=>done[t.id]).length;
+  return `<div class="card"><span class="tag">${p.weeks}</span><h3>${esc(p.name)}</h3><div class="bar"><i style="width:${k/ts.length*100}%"></i></div><p class="muted" style="margin:6px 0 0">${k}/${ts.length} topics</p></div>`}).join("");
+ const next=TOPICS.filter(t=>!done[t.id]&&pri[t.id]!=="r").sort((a,b)=>(pri[a.id]==="g"?0:1)-(pri[b.id]==="g"?0:1))[0];
+ const due=CARDS.filter(c=>!box[c.id]||box[c.id].due<=today()).length;
+ $("#focus").innerHTML=(next?`<p><b>Next topic:</b> ${esc(next.t)} <span class="pill">${PARTS[next.p-1].weeks}</span></p>`:`<p>All topics mastered. Do mixed quizzes.</p>`)+`<p><b>${due}</b> flashcards due.</p>`;
+}
+
+/* ---------- TOPICS ---------- */
+function renderTopics(){
+ const f=$("#fpri").value;
+ let out="";
+ PARTS.forEach(p=>{
+  const ts=TOPICS.filter(t=>t.p===p.id).filter(t=>{const pr=pri[t.id]||"";
+   if(f==="g")return pr==="g"; if(f==="go")return pr==="g"||pr==="o"; if(f==="x")return pr!=="r"; if(f==="u")return !done[t.id]; return true});
+  if(!ts.length)return;
+  out+=`<h2>${esc(p.name)} <span class="pill">${p.weeks}</span></h2>`;
+  ts.forEach(t=>{const pr=pri[t.id]||"";
+   out+=`<details class="card topic"><summary><input type="checkbox" data-done="${t.id}" ${done[t.id]?"checked":""} aria-label="Mastered: ${esc(t.t)}"><span class="t">${esc(t.t)}</span><button class="pri ${pr}" data-pri="${t.id}" title="Click to cycle: green / orange / red">${priLabel[pr]}</button></summary><ul>${t.k.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`});
+ });
+ $("#topicList").innerHTML=out||'<p class="muted">Nothing matches this filter yet.</p>';
+}
+$("#topicList").addEventListener("click",e=>{
+ const b=e.target.closest("[data-pri]");
+ if(b){e.preventDefault();const id=b.dataset.pri;pri[id]=cycle[pri[id]||""];store.set("pri",pri);renderTopics();return}
+ const c=e.target.closest("[data-done]");
+ if(c){e.stopPropagation();done[c.dataset.done]=c.checked;store.set("done",done)}
+});
+$("#fpri").onchange=renderTopics;
+
+/* ---------- FLASHCARDS ---------- */
+const deckSel=$("#deckSel");
+deckSel.innerHTML='<option value="0">All parts</option>'+PARTS.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join("");
+let queue=[],cur=null,flipped=false;
+const INTERVALS=[1,3,7,14,30];
+function buildQueue(){
+ const dk=+deckSel.value,mode=$("#modeSel").value;
+ let cs=CARDS.filter(c=>!dk||c.p===dk);
+ if(mode==="due")cs=cs.filter(c=>!box[c.id]||box[c.id].due<=today());
+ else cs=cs.sort(()=>Math.random()-.5);
+ queue=cs;next();
+}
+function next(){
+ cur=queue.shift()||null;flipped=false;showCard();
+}
+function showCard(){
+ const f=$("#flash");
+ $("#cstat").textContent=`${queue.length+(cur?1:0)} left`;
+ if(!cur){f.innerHTML="<div>🎉 No cards left here.<br><small class='muted'>Try another deck or mode.</small></div>";return}
+ f.innerHTML=`<div><small>${flipped?"ANSWER":"QUESTION"} · ${PARTS[cur.p-1].weeks}</small>${esc(flipped?cur.a:cur.q)}</div>`;
+}
+function flip(){if(cur){flipped=!flipped;showCard()}}
+function rate(ok){
+ if(!cur)return;
+ const b=box[cur.id]||{lvl:0};
+ b.lvl=ok?Math.min(b.lvl+1,INTERVALS.length-1):0;
+ b.due=today()+(ok?INTERVALS[b.lvl]:1);
+ box[cur.id]=b;store.set("box",box);
+ if(!ok&&$("#modeSel").value==="all")queue.push(cur);
+ next();
+}
+$("#flash").onclick=flip;$("#cflip").onclick=flip;$("#cyes").onclick=()=>rate(true);$("#cno").onclick=()=>rate(false);
+deckSel.onchange=buildQueue;$("#modeSel").onchange=buildQueue;
+document.addEventListener("keydown",e=>{
+ if(!$("#cards").classList.contains("on")||e.target.matches("select,input"))return;
+ if(e.code==="Space"){e.preventDefault();flip()}
+ if(e.key==="ArrowRight")rate(true);if(e.key==="ArrowLeft")rate(false);
+});
+
+/* ---------- QUIZ ---------- */
+$("#qpart").innerHTML='<option value="0">All parts (mixed)</option>'+PARTS.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join("");
+let qs=[],qi=0,score=0;
+$("#qstart").onclick=()=>{
+ const p=+$("#qpart").value;
+ qs=QUIZ.filter(q=>!p||q.p===p).sort(()=>Math.random()-.5);qi=0;score=0;showQ();
+};
+function showQ(){
+ const box_=$("#qbox");
+ if(qi>=qs.length){const pct=Math.round(score/qs.length*100);
+  box_.innerHTML=`<h3>Finished: ${score}/${qs.length} (${pct}%)</h3><p class="muted">${pct>=85?"Excellent. Move to a mixed quiz.":pct>=60?"Good. Revisit the topics you missed.":"Review the Syllabus tab then try again."}</p>`;
+  $("#qscore").textContent="";return}
+ const q=qs[qi];
+ const order=q.o.map((t,i)=>i).sort(()=>Math.random()-.5);
+ $("#qscore").textContent=`Q${qi+1}/${qs.length} · score ${score}`;
+ box_.innerHTML=`<p class="tag">${PARTS[q.p-1].weeks}</p><h3>${esc(q.q)}</h3>`+order.map(i=>`<button class="opt" data-i="${i}">${esc(q.o[i])}</button>`).join("")+`<div id="fb"></div>`;
+ $$("#qbox .opt").forEach(b=>b.onclick=()=>{
+  const ok=+b.dataset.i===q.a;
+  $$("#qbox .opt").forEach(x=>{x.disabled=true;if(+x.dataset.i===q.a)x.classList.add("ok")});
+  if(!ok)b.classList.add("bad");else score++;
+  $("#fb").innerHTML=`<p>${ok?"✓ Correct.":"✗ Not quite."} ${esc(q.e)}</p><button class="btn primary" id="qnext">${qi+1<qs.length?"Next":"Finish"}</button>`;
+  $("#qscore").textContent=`Q${qi+1}/${qs.length} · score ${score}`;
+  $("#qnext").onclick=()=>{qi++;showQ()};
+ });
+}
+
+/* ---------- STRATEGIES & PLAN ---------- */
+$("#stratList").innerHTML=STRATS.map(s=>`<div class="card"><h3>${esc(s[0])}</h3><p>${esc(s[1])}</p><p class="muted"><b>For this course:</b> ${esc(s[2])}</p></div>`).join("");
+$("#planList").innerHTML=PLAN.map(p=>`<div class="card"><span class="tag">${esc(p[0])}</span><h3>${esc(p[1])}</h3><p class="muted" style="margin:0">${esc(p[2])}</p></div>`).join("");
+
+renderHome();renderTopics();buildQueue();
+</script>
+</body>
+</html>
